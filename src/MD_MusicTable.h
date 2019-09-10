@@ -34,6 +34,9 @@ Version History
 ---------------
 Sep 2019 - V1.0.0
 - First creation
+
+Sep 2019 - V1.0.1
+- Adjusted scope of NOTE_COUNT constant 
 */
 
 class MD_MusicTable
