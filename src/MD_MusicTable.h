@@ -32,17 +32,23 @@ m = (12/ln(2)) * ln(f/27.5) + 21
 
 Version History
 ---------------
-Sep 2019 - V1.0.0
+Sep 2019 - v1.0.0
 - First creation
 
-Sep 2019 - V1.0.1
-- Adjusted scope of NOTE_COUNT constant 
+Sep 2019 - v1.0.1
+- Adjusted scope of NOTE_COUNT constant
+
+Sep 2019 - v1.0.2
+- More efficient search
+- Added note id lookup 
+- Adjusted scope of NOTES_IN_OCTAVE constant
 */
 
 class MD_MusicTable
 {
   public:
     static const uint8_t NOTES_COUNT = 128;    /// number of MIDI notes
+    static const uint8_t NOTES_IN_OCTAVE = 12; /// number of notes
 
     MD_MusicTable(void): _curItem(-1) {}
     ~MD_MusicTable(void) {}
@@ -57,6 +63,10 @@ class MD_MusicTable
     // Octave defaults to before Middle C if not specified
     bool findName(const char *note, int8_t octave = 3);
 
+    // return the note index into the note table for a simple note
+    // string (eg, "A" or "F#")
+    int8_t lookupNoteId(const char* note);
+
     // Return values from the table
     float getFrequency(void);               // frequency in Hz
     char *getName(char *buf, uint8_t len);  // ISO name (note and octave eg A4)
@@ -65,7 +75,6 @@ class MD_MusicTable
     int8_t getId(void);                     // MIDI note number
     
   private:
-    static const uint8_t NOTES_IN_OCTAVE = 12; // number of notes
     static const uint8_t NOTE_NAME_SIZE = 3;   // number of characters
     
     // Structure to hold the data for one note

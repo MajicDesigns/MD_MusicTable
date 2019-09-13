@@ -17,11 +17,28 @@ bool MD_MusicTable::findId(uint8_t midiId)
 bool MD_MusicTable::findName(const char *note, int8_t octave)
 {
   int8_t idxName = -1;
-  int8_t idxNote = -1;
 
   _curItem = -1;
 
   // first get the index for the note name by matching the name
+  idxName = lookupNoteId(note);
+
+  if (idxName != -1)
+  {
+    // if that passed, then work out the index based on the octave
+    _curItem = (octave * NOTES_IN_OCTAVE) + idxName;
+    if (_curItem >= NOTES_COUNT)
+      _curItem = -1; 
+  }
+
+  return(_curItem != -1);
+}
+
+int8_t MD_MusicTable::lookupNoteId(const char* note)
+// first get the index for the note name by matching the name
+{
+  int8_t idxName = -1;
+
   for (uint8_t i = 0; i < NOTES_IN_OCTAVE; i++)
   {
     if (strcmp_P(note, noteName[i]) == 0)
@@ -31,32 +48,7 @@ bool MD_MusicTable::findName(const char *note, int8_t octave)
     }
   }
 
-  if (idxName != -1)
-  {
-    // if that passed, then find by linear search the octave section
-    // octaves are in numerical order
-    for (idxNote = 0; idxNote < NOTES_COUNT; idxNote++)
-    {
-      int8_t x = pgm_read_byte(&notes[idxNote].octave);
-      
-      if (x == octave) break;   // found first
-      if (x > octave)  // gone too far, so not in the table
-      {
-        idxNote = -1; 
-        break;
-      }
-    }
-  }
-
-  // if we have valid subindexes, then work out where it is in the table
-  if (idxName != -1 && idxNote != -1)
-  {
-    _curItem = idxNote + idxName;
-    if (_curItem >= NOTES_COUNT)    // somehow past the end of the table
-      _curItem = -1;
-  }
-
-  return(_curItem != -1);
+  return(idxName);
 }
 
 float MD_MusicTable::getFrequency(void)
