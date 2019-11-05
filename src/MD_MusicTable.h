@@ -32,16 +32,19 @@ m = (12/ln(2)) * ln(f/27.5) + 21
 
 Version History
 ---------------
-Sep 2019 - v1.0.0
-- First creation
-
-Sep 2019 - v1.0.1
-- Adjusted scope of NOTE_COUNT constant
+Nov 2019 - v1.0.3
+- Minor updates
 
 Sep 2019 - v1.0.2
 - More efficient search
 - Added note id lookup 
 - Adjusted scope of NOTES_IN_OCTAVE constant
+
+Sep 2019 - v1.0.1
+- Adjusted scope of NOTE_COUNT constant
+
+Sep 2019 - v1.0.0
+- First creation
 */
 
 class MD_MusicTable
@@ -73,6 +76,7 @@ class MD_MusicTable
     char *getNote(char *buf, uint8_t len);  // note name only (eg A)
     int8_t getOctave(void);                 // octave number
     int8_t getId(void);                     // MIDI note number
+    int8_t getNoteId(void);                 // Note number [0..NOTES_IN_OCTAVE-1]
     
   private:
     static const uint8_t NOTE_NAME_SIZE = 3;   // number of characters

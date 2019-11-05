@@ -17,6 +17,7 @@ lookupNoteId	KEYWORD2
 getFrequency	KEYWORD2
 getName	KEYWORD2
 getNote	KEYWORD2
+getNoteId	KEYWORD2
 getOctave	KEYWORD2
 getId	KEYWORD2
 

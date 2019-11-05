@@ -74,7 +74,7 @@ char *MD_MusicTable::getName(char *buf, uint8_t len)
 
     itoa(octave, sz, 10);
     strncpy_P(buf, noteName[nameIdx], len);
-    strncat(buf, sz, len);
+    strncat(buf, sz, len-1);
   }
   return(buf);
 }
@@ -110,3 +110,12 @@ int8_t MD_MusicTable::getId(void)
   return(id);
 };
 
+int8_t MD_MusicTable::getNoteId(void)
+{
+  uint8_t id = 255;
+
+  if (_curItem != -1)
+    id = pgm_read_byte(&notes[_curItem].nameId);
+
+  return(id);
+};
