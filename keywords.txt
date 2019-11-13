@@ -13,6 +13,7 @@ MD_MusicTable	KEYWORD1
 addChar	KEYWORD2
 findId	KEYWORD2
 findName	KEYWORD2
+findNoteOctave	KEYWORD2
 lookupNoteId	KEYWORD2
 getFrequency	KEYWORD2
 getName	KEYWORD2

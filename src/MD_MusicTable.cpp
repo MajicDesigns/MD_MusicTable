@@ -34,6 +34,22 @@ bool MD_MusicTable::findName(const char *note, int8_t octave)
   return(_curItem != -1);
 }
 
+bool MD_MusicTable::findNoteOctave(uint8_t noteId, int8_t octave)
+{
+  _curItem = -1;
+
+  // first get the index for the note name is within bounds
+  if (noteId <= NOTES_IN_OCTAVE)
+  {
+    // if that passed, then work out the index based on the octave
+    _curItem = (octave * NOTES_IN_OCTAVE) + noteId;
+    if (_curItem >= NOTES_COUNT)
+      _curItem = -1;
+  }
+
+  return(_curItem != -1);
+}
+
 int8_t MD_MusicTable::lookupNoteId(const char* note)
 // first get the index for the note name by matching the name
 {
