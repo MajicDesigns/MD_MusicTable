@@ -32,6 +32,9 @@ m = (12/ln(2)) * ln(f/27.5) + 21
 
 Version History
 ---------------
+Nov 2019 - v1.1.0
+- Added findNoteOctave() method
+
 Nov 2019 - v1.0.3
 - Minor updates
 
@@ -59,12 +62,15 @@ class MD_MusicTable
     // Searching functions set the current item selection index 
     // if the MIDI note item is found in the table
     
-    // Search but MIDI note number
+    // Search by MIDI note number
     bool findId(uint8_t midiId);
 
     // Search by note name (string eg "A" or "A#") and octave. 
     // Octave defaults to before Middle C if not specified
     bool findName(const char *note, int8_t octave = 3);
+
+    // Search by NoteId and octave
+    bool findNoteOctave(uint8_t noteId, int8_t octave = 3);
 
     // return the note index into the note table for a simple note
     // string (eg, "A" or "F#")
